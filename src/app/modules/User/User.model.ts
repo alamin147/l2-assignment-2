@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
-import { Address, User, Username } from './User.interface';
+import { Schema, model } from 'mongoose';
+import { Address, IUser, Username } from './User.interface';
 
 export const fullNameSchema = new Schema<Username>({
   firstName: {
@@ -18,7 +18,7 @@ export const addressSchema = new Schema<Address>({
   street: { type: String, required: [true, 'Street is required'] },
 });
 
-export const useruSchema = new Schema<User>({
+export const userSchema = new Schema<IUser>({
   userId: {
     type: Number,
     required: [true, 'User ID is required'],
@@ -74,3 +74,6 @@ export const useruSchema = new Schema<User>({
     default: [],
   },
 });
+
+
+export const UserModel= model<IUser>('User',userSchema)

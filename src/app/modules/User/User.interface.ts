@@ -15,7 +15,7 @@ export type Address = {
   country: string;
 };
 
-export type User = {
+export type IUser = {
   userId: number;
   username: string;
   password: string;
