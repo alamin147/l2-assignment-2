@@ -11,8 +11,14 @@ const GetAllUsersService =async () => {
     )
     return result;
 }
+const getSingleUserService =async (userId:string) => {
+    const result = (await UserModel.findOne({userId:userId})
+    )
+    return result;
+}
 
 export const UserServices= {
     createUserService,
-    GetAllUsersService
+    GetAllUsersService,
+    getSingleUserService
 }

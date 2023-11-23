@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import {UserServices} from './User.service';
+import { Error } from 'mongoose';
 
 
 const createUser = async (req: Request, res: Response) => {
@@ -41,7 +42,28 @@ try {
     });
 }
 }
+const getSingleUser= async(req: Request, res: Response)=>{
+try {
+    const UserId = req.params.userId;
+    const result = await UserServices.getSingleUserService(UserId);
+    if(result===null){
+        throw new Error('Failed to load single data')}
+    res.status(200).json({
+        "success": true,
+        "message": "User fetched successfully!",
+        "data": result
+    });
+} catch (error) {
+    res.status(404).json({
+        "success": false,
+        "message": "User not found",
+        "error": {
+            "code": 404,
+            "description": "User not found!"
+        }})
+}}
+
 
   export const UserControllers = {
-    createUser,getUsers
+    createUser,getUsers,getSingleUser
   }
