@@ -6,7 +6,13 @@ const createUserService = async (user: IUser) => {
     return result;
   };
 
+const GetAllUsersService =async () => {
+    const result = (await UserModel.find().select('username fullName age email address')
+    )
+    return result;
+}
 
 export const UserServices= {
-    createUserService
+    createUserService,
+    GetAllUsersService
 }
