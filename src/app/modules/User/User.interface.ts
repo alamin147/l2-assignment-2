@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type OrdersArray = {
   productName: string;
   price: number;
@@ -46,3 +48,10 @@ export type IUpdateUserRequest= {
     country?: string;
   };
 }
+
+export type IUserMethods = {
+
+  isUserExist(userId:string):Promise<IUser|null>
+}
+
+export type UserModel = Model<IUser,Record<string,never>,IUserMethods>

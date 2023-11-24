@@ -1,30 +1,36 @@
 import { IUpdateUserRequest, IUser } from './User.interface';
-import { UserModel } from './User.model';
+import { UserModels } from './User.model';
 
 const createUserService = async (user: IUser) => {
-    const result = await UserModel.create(user);
+    const stringUserId = user.userId.toString();
+    const createUser = new UserModels(user);
+if(await createUser.isUserExist(stringUserId)){
+    throw new Error('User Exists')
+}
+    
+    const result = await createUser.save();
     return result;
   };
 
 const GetAllUsersService =async () => {
-    const result = await UserModel.find().select('username fullName age email address')
+    const result = await UserModels.find().select('username fullName age email address')
 
     return result;
 }
 const getSingleUserService =async (userId:string) => {
-    const result = await UserModel.findOne({userId:userId})
+    const result = await UserModels.findOne({userId:userId})
     
     return result;
 }
 
 const deleteSingleUserService = async(userId:string)=>{
-const result = await UserModel.deleteOne({userId:userId})
+const result = await UserModels.deleteOne({userId:userId})
 return result;
 }
 
 
 const updateUserService = async(userId:string,userData:IUpdateUserRequest)=>{
-    const result = await UserModel.findOneAndUpdate({userId:userId},userData, {new:true})
+    const result = await UserModels.findOneAndUpdate({userId:userId},userData, {new:true})
     return result;
 }
 
