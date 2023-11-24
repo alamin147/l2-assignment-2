@@ -3,16 +3,18 @@ import { UserControllers } from './User.controller';
 
 const router = express.Router();
 
-router.post('/',UserControllers.createUser);
+router.post('/', UserControllers.createUser);
 
-router.get('/',UserControllers.getUsers);
+router.get('/', UserControllers.getUsers);
 
-router.get('/:userId',UserControllers.getSingleUser);
+router.get('/:userId', UserControllers.getSingleUser);
 
-router.delete('/:userId',UserControllers.deleteSingleUser);
+router.delete('/:userId', UserControllers.deleteSingleUser);
 
-router.put('/:userId/orders',UserControllers.createOrders);
+router.put('/:userId/orders', UserControllers.createOrders);
 
-router.put('/:userId',UserControllers.updateSingleUser);
+router.get('/:userId/orders', UserControllers.getAllOrdersByUser);
+
+router.put('/:userId', UserControllers.updateSingleUser);
 
 export const UserRoutes = router;

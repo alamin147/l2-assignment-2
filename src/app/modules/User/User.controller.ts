@@ -110,10 +110,8 @@ const updateSingleUser = async (req: Request, res: Response) => {
   }
 };
 
-
-const createOrders=async(req:Request,res:Response)=>{
-  
-   try{
+const createOrders = async (req: Request, res: Response) => {
+  try {
     const UserId = req.params.userId;
     // console.log("checking id",UserId);
     const OrderData = req.body;
@@ -121,25 +119,47 @@ const createOrders=async(req:Request,res:Response)=>{
     // console.log("122");
     const resultUser = await UserServices.getSingleUserService(UserId);
     // console.log("122",resultUser);
-    if(resultUser){
+    if (resultUser) {
       resultUser.orders.push(OrderData);
       await resultUser.save();
     }
-  res.status(200).json({
-    success: true,
-    message: 'Order created successfully!',
-    data: null,
-  })}
-  catch(error){
+    res.status(200).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: null,
+    });
+  } catch (error) {
     res.status(500).json({
-    "success": false,
-    "message": "User not found",
-    "error": {
-        "code": 500,
-        "description": "User not found!"}
-  })
+      success: false,
+      message: 'User not found',
+      error: {
+        code: 500,
+        description: 'User not found!',
+      },
+    });
   }
-}
+};
+
+const getAllOrdersByUser = async (req: Request, res: Response) => {
+  try {
+    const UserId = req.params.userId;
+    const result = await UserServices.getAllOrdersByUserService(UserId);
+    res.status(200).json({
+      success: true,
+      message: 'Order fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Order not found',
+      error: {
+        code: 500,
+        description: 'Order not found!',
+      },
+    });
+  }
+};
 
 export const UserControllers = {
   createUser,
@@ -147,5 +167,6 @@ export const UserControllers = {
   getSingleUser,
   deleteSingleUser,
   updateSingleUser,
-  createOrders
+  createOrders,
+  getAllOrdersByUser,
 };

@@ -34,7 +34,7 @@ const updateUserService = async (
   userId: string,
   userData: IUpdateUserRequest,
 ) => {
-  console.log("from service",userData);
+  // console.log("from service",userData);
   const result = await UserModels.findOneAndUpdate(
     { userId: userId },
     userData,
@@ -43,6 +43,10 @@ const updateUserService = async (
   return result;
 };
 
+const getAllOrdersByUserService = async (userId: string) => {
+  const result = await UserModels.findOne({ userId: userId }).select('orders');
+  return result;
+};
 
 export const UserServices = {
   createUserService,
@@ -50,4 +54,5 @@ export const UserServices = {
   getSingleUserService,
   deleteSingleUserService,
   updateUserService,
+  getAllOrdersByUserService,
 };
