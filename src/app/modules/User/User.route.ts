@@ -11,6 +11,8 @@ router.get('/:userId', UserControllers.getSingleUser);
 
 router.delete('/:userId', UserControllers.deleteSingleUser);
 
+router.get('/:userId/orders/total-price', UserControllers.calculateOrderPrice);
+
 router.put('/:userId/orders', UserControllers.createOrders);
 
 router.get('/:userId/orders', UserControllers.getAllOrdersByUser);
