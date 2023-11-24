@@ -34,6 +34,7 @@ const updateUserService = async (
   userId: string,
   userData: IUpdateUserRequest,
 ) => {
+  console.log("from service",userData);
   const result = await UserModels.findOneAndUpdate(
     { userId: userId },
     userData,
@@ -41,6 +42,7 @@ const updateUserService = async (
   );
   return result;
 };
+
 
 export const UserServices = {
   createUserService,

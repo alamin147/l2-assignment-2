@@ -113,6 +113,25 @@ const updateUserSchema = new Schema<IUpdateUserRequest>({
     city: String,
     country: String,
   },
+  orders: {
+    type: [
+      {
+        productName: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    default: [],
+  },
 });
 
 export const UpdateUserModel = model<IUpdateUserRequest>(

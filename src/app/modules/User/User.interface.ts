@@ -31,7 +31,7 @@ export type IUser = {
 };
 
 export type IUpdateUserRequest = {
-  userId: number;
+  userId?: number;
   username?: string;
   fullName?: {
     firstName?: string;
@@ -46,6 +46,7 @@ export type IUpdateUserRequest = {
     city?: string;
     country?: string;
   };
+  orders?: Array<OrdersArray>;
 };
 
 export type IUserMethods = {
