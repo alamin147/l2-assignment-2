@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Address, IUser, Fullname, IUpdateUserRequest, UserModel, IUserMethods } from './User.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 export const fullNameSchema = new Schema<Fullname>({
   firstName: {
@@ -78,6 +80,12 @@ export const userSchema = new Schema<IUser,UserModel,IUserMethods>({
 });
 
 
+userSchema.pre('save',async function(next){
+   this.password = await bcrypt.hash(this.password,Number(config.bcrypt_salt))
+next();
+})
+
+
 userSchema.methods.isUserExist = async function(userId:string){
 const existingUser = await UserModels.findOne({userId:userId})
 return existingUser;
@@ -103,6 +111,9 @@ const updateUserSchema = new Schema<IUpdateUserRequest>({
     country: String,
   },
 });
+
+
+
 
 export const UpdateUserModel = model<IUpdateUserRequest>('UpdateUser', updateUserSchema);
 
