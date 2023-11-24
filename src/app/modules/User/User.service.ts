@@ -7,18 +7,24 @@ const createUserService = async (user: IUser) => {
   };
 
 const GetAllUsersService =async () => {
-    const result = (await UserModel.find().select('username fullName age email address')
-    )
+    const result = await UserModel.find().select('username fullName age email address')
+
     return result;
 }
 const getSingleUserService =async (userId:string) => {
-    const result = (await UserModel.findOne({userId:userId})
-    )
+    const result = await UserModel.findOne({userId:userId})
+    
     return result;
+}
+
+const deleteSingleUserService = async(userId:string)=>{
+const result = await UserModel.deleteOne({userId:userId})
+return result;
 }
 
 export const UserServices= {
     createUserService,
     GetAllUsersService,
-    getSingleUserService
+    getSingleUserService,
+    deleteSingleUserService
 }
