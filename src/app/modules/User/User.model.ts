@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { Address, IUser, Username } from './User.interface';
+import { Address, IUser, Fullname, IUpdateUserRequest } from './User.interface';
 
-export const fullNameSchema = new Schema<Username>({
+export const fullNameSchema = new Schema<Fullname>({
   firstName: {
     type: String,
     required: [true, 'First name is required'],
@@ -75,5 +75,30 @@ export const userSchema = new Schema<IUser>({
   },
 });
 
+
+
+
+const updateUserSchema = new Schema<IUpdateUserRequest>({
+  userId: {
+    type: Number,
+    required: true,
+  },
+  username: String,
+  fullName: {
+    firstName: String,
+    lastName: String,
+  },
+  age: Number,
+  email: String,
+  isActive: Boolean,
+  hobbies: [String],
+  address: {
+    street: String,
+    city: String,
+    country: String,
+  },
+});
+
+export const UpdateUserModel = model<IUpdateUserRequest>('UpdateUser', updateUserSchema);
 
 export const UserModel= model<IUser>('User',userSchema)

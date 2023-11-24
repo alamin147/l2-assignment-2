@@ -1,4 +1,4 @@
-import { IUser } from './User.interface';
+import { IUpdateUserRequest, IUser } from './User.interface';
 import { UserModel } from './User.model';
 
 const createUserService = async (user: IUser) => {
@@ -22,9 +22,15 @@ const result = await UserModel.deleteOne({userId:userId})
 return result;
 }
 
+
+const updateUserService = async(userId:string,userData:IUpdateUserRequest)=>{
+    const result = await UserModel.findOneAndUpdate({userId:userId},userData, {new:true})
+    return result;
+}
+
 export const UserServices= {
     createUserService,
     GetAllUsersService,
     getSingleUserService,
-    deleteSingleUserService
+    deleteSingleUserService,updateUserService
 }

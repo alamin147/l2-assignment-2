@@ -4,7 +4,7 @@ export type OrdersArray = {
   quantity: number;
 };
 
-export type Username = {
+export type Fullname = {
   firstName: string;
   lastName: string;
 };
@@ -19,7 +19,7 @@ export type IUser = {
   userId: number;
   username: string;
   password: string;
-  fullName: Username;
+  fullName: Fullname;
   age: number;
   email: string;
   isActive: 'active' | 'inactive';
@@ -27,3 +27,22 @@ export type IUser = {
   address: Address;
   orders: Array<OrdersArray>;
 };
+
+
+export type IUpdateUserRequest= {
+  userId: number;
+  username?: string;
+  fullName?: {
+    firstName?: string;
+    lastName?: string;
+  };
+  age?: number;
+  email?: string;
+  isActive?: boolean;
+  hobbies?: string[];
+  address?: {
+    street?: string;
+    city?: string;
+    country?: string;
+  };
+}

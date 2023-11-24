@@ -87,8 +87,32 @@ res.status(200).json({
     }
 }
 
+const updateSingleUser = async(req:Request, res:Response)=>{
+    try {
+        const UserId = req.params.userId;
+        const userData = req.body;
+        const result = await UserServices.updateUserService(UserId,userData);
+
+        res.status(200).json({
+	    "success": true,
+	    "message": "User updated successfully!",
+	    "data" : result
+        })
+
+    } catch (error) {
+        res.status(404).json({
+            "success": false,
+            "message": "User not found",
+            "error": {
+                "code": 404,
+                "description": "User not found!"
+            }
+        })
+    }
+}
+
 
 
   export const UserControllers = {
-    createUser,getUsers,getSingleUser,deleteSingleUser
+    createUser,getUsers,getSingleUser,deleteSingleUser,updateSingleUser
   }
