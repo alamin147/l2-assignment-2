@@ -1,5 +1,12 @@
 import { Schema, model } from 'mongoose';
-import { Address, IUser, Fullname, IUpdateUserRequest, UserModel, IUserMethods } from './User.interface';
+import {
+  Address,
+  IUser,
+  Fullname,
+  IUpdateUserRequest,
+  UserModel,
+  IUserMethods,
+} from './User.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
@@ -20,9 +27,7 @@ export const addressSchema = new Schema<Address>({
   street: { type: String, required: [true, 'Street is required'] },
 });
 
-
-
-export const userSchema = new Schema<IUser,UserModel,IUserMethods>({
+export const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   userId: {
     type: Number,
     required: [true, 'User ID is required'],
@@ -31,16 +36,16 @@ export const userSchema = new Schema<IUser,UserModel,IUserMethods>({
   username: {
     type: String,
     unique: true,
-    required:[true,"Username is required"]
+    required: [true, 'Username is required'],
   },
-  fullName: { type: fullNameSchema, required: [true,"Name is required"] },
+  fullName: { type: fullNameSchema, required: [true, 'Name is required'] },
   password: {
     type: String,
     required: [true, 'Password is required'],
   },
   age: {
     type: Number,
-    required:[true,"Age is required"]
+    required: [true, 'Age is required'],
   },
   email: { type: String, required: [true, 'Email is required'] },
 
@@ -79,17 +84,15 @@ export const userSchema = new Schema<IUser,UserModel,IUserMethods>({
   },
 });
 
+userSchema.pre('save', async function (next) {
+  this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt));
+  next();
+});
 
-userSchema.pre('save',async function(next){
-   this.password = await bcrypt.hash(this.password,Number(config.bcrypt_salt))
-next();
-})
-
-
-userSchema.methods.isUserExist = async function(userId:string){
-const existingUser = await UserModels.findOne({userId:userId})
-return existingUser;
-}
+userSchema.methods.isUserExist = async function (userId: string) {
+  const existingUser = await UserModels.findOne({ userId: userId });
+  return existingUser;
+};
 
 const updateUserSchema = new Schema<IUpdateUserRequest>({
   userId: {
@@ -112,9 +115,9 @@ const updateUserSchema = new Schema<IUpdateUserRequest>({
   },
 });
 
+export const UpdateUserModel = model<IUpdateUserRequest>(
+  'UpdateUser',
+  updateUserSchema,
+);
 
-
-
-export const UpdateUserModel = model<IUpdateUserRequest>('UpdateUser', updateUserSchema);
-
-export const UserModels= model<IUser,UserModel>('User',userSchema)
+export const UserModels = model<IUser, UserModel>('User', userSchema);

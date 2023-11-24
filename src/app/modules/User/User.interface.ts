@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 
 export type OrdersArray = {
   productName: string;
@@ -30,8 +30,7 @@ export type IUser = {
   orders: Array<OrdersArray>;
 };
 
-
-export type IUpdateUserRequest= {
+export type IUpdateUserRequest = {
   userId: number;
   username?: string;
   fullName?: {
@@ -47,11 +46,10 @@ export type IUpdateUserRequest= {
     city?: string;
     country?: string;
   };
-}
+};
 
 export type IUserMethods = {
+  isUserExist(userId: string): Promise<IUser | null>;
+};
 
-  isUserExist(userId:string):Promise<IUser|null>
-}
-
-export type UserModel = Model<IUser,Record<string,never>,IUserMethods>
+export type UserModel = Model<IUser, Record<string, never>, IUserMethods>;
