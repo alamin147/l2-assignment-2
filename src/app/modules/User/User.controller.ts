@@ -169,7 +169,7 @@ const getAllOrdersByUser = async (req: Request, res: Response) => {
       message: 'Order failed to fetched!',
       error: {
         code: 500,
-        description: 'Order failed to fetche!',
+        description: 'Order failed to fetched!',
       },
     });
   }

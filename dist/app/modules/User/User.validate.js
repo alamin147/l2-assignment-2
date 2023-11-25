@@ -24,9 +24,11 @@ exports.userValidateSchema = joi_1.default.object({
     isActive: joi_1.default.boolean().default(true),
     address: addressSchema.required(),
     hobbies: joi_1.default.array().items(joi_1.default.string()).default([]),
-    orders: joi_1.default.array().items(joi_1.default.object({
+    orders: joi_1.default.array()
+        .items(joi_1.default.object({
         productName: joi_1.default.string().required(),
         price: joi_1.default.number().required(),
         quantity: joi_1.default.number().required(),
-    })).default([]),
+    }))
+        .default([]),
 });

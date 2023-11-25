@@ -39,7 +39,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             success: false,
             message: 'User could not created',
             error: {
-                code: 404,
+                code: 500,
                 description: 'User failed to create!',
             },
         });
@@ -77,10 +77,10 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res.status(500).json({
             success: false,
-            message: 'User not found',
+            message: 'User not fetched',
             error: {
                 code: 500,
-                description: 'User not found!',
+                description: 'User could not fetched!',
             },
         });
     }
@@ -120,7 +120,7 @@ const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     catch (error) {
         res.status(404).json({
             success: false,
-            message: 'User not found',
+            message: 'User updated failed',
             error: {
                 code: 404,
                 description: 'User not found!',
@@ -150,7 +150,7 @@ const createOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (error) {
         res.status(500).json({
             success: false,
-            message: 'User not found',
+            message: 'Failed to create order!',
             error: {
                 code: 500,
                 description: 'User not found!',
@@ -171,10 +171,10 @@ const getAllOrdersByUser = (req, res) => __awaiter(void 0, void 0, void 0, funct
     catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Order not found',
+            message: 'Order failed to fetched!',
             error: {
                 code: 500,
-                description: 'Order not found!',
+                description: 'Order failed to fetche!',
             },
         });
     }
