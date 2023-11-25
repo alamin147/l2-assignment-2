@@ -24,7 +24,7 @@ export type IUser = {
   fullName: Fullname;
   age: number;
   email: string;
-  isActive: 'active' | 'inactive';
+  isActive: boolean;
   hobbies: Array<string>;
   address: Address;
   orders: Array<OrdersArray>;

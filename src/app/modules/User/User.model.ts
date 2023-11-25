@@ -50,9 +50,8 @@ export const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   email: { type: String, required: [true, 'Email is required'] },
 
   isActive: {
-    type: String,
-    enum: ['active', 'inactive'],
-    default: 'active',
+    type: Boolean,
+    default: true,
   },
 
   address: {

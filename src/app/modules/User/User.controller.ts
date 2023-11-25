@@ -2,11 +2,27 @@ import { Request, Response } from 'express';
 
 import { UserServices } from './User.service';
 import { Error } from 'mongoose';
+import Joi from 'joi';
+import { userValidateSchema } from './User.validate';
 
 const createUser = async (req: Request, res: Response) => {
   try {
+    
     const userData = req.body;
-    const result = await UserServices.createUserService(userData);
+    const {error,value}= userValidateSchema.validate(userData)
+
+    const result = await UserServices.createUserService(value);
+
+    if(error){
+      res.status(500).json({
+        success: false,
+        message: 'User could not created',
+        error: {
+          code: 500,
+          description: error.details,
+        },
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -14,7 +30,7 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.send({
+    res.status(500).json({
       success: false,
       message: 'User could not created',
       error: {
@@ -24,6 +40,9 @@ const createUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
 
 const getUsers = async (req: Request, res: Response) => {
   try {
