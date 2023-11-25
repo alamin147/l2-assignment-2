@@ -2,18 +2,16 @@ import { Request, Response } from 'express';
 
 import { UserServices } from './User.service';
 import { Error } from 'mongoose';
-import Joi from 'joi';
 import { userValidateSchema } from './User.validate';
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    
     const userData = req.body;
-    const {error,value}= userValidateSchema.validate(userData)
+    const { error, value } = userValidateSchema.validate(userData);
 
     const result = await UserServices.createUserService(value);
 
-    if(error){
+    if (error) {
       res.status(500).json({
         success: false,
         message: 'User could not created',
@@ -34,15 +32,12 @@ const createUser = async (req: Request, res: Response) => {
       success: false,
       message: 'User could not created',
       error: {
-        code: 404,
+        code: 500,
         description: 'User failed to create!',
       },
     });
   }
 };
-
-
-
 
 const getUsers = async (req: Request, res: Response) => {
   try {
@@ -75,10 +70,10 @@ const getSingleUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
+      message: 'User not fetched',
       error: {
         code: 500,
-        description: 'User not found!',
+        description: 'User could not fetched!',
       },
     });
   }
@@ -120,7 +115,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(404).json({
       success: false,
-      message: 'User not found',
+      message: 'User updated failed',
       error: {
         code: 404,
         description: 'User not found!',
@@ -150,7 +145,7 @@ const createOrders = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
+      message: 'Failed to create order!',
       error: {
         code: 500,
         description: 'User not found!',
@@ -171,10 +166,10 @@ const getAllOrdersByUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Order not found',
+      message: 'Order failed to fetched!',
       error: {
         code: 500,
-        description: 'Order not found!',
+        description: 'Order failed to fetche!',
       },
     });
   }
